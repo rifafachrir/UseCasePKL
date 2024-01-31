@@ -8,8 +8,11 @@ import com.useCase.tugas_pkl.repository.InstitutionRepository;
 import com.useCase.tugas_pkl.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InstitutionServiceImpl implements InstitutionService {
@@ -36,4 +39,17 @@ public class InstitutionServiceImpl implements InstitutionService {
         dto.setName(institution.getName());
         return dto;
     }
+
+    @Override
+    public List<InstitutionResponseDTO> findAllInstitution(String name) {
+
+        name = ObjectUtils.isEmpty(name)?"%":"%"+name+"%";
+
+        List<Institution> bookResponses =  institutionRepository.findAllByNameLike(name);
+        return bookResponses.stream().map((b)-> {
+            InstitutionResponseDTO dto = new InstitutionResponseDTO();
+            dto.setName(b.getName());
+            dto.setId(b.getId());
+            return dto;
+        }).collect(Collectors.toList());    }
 }

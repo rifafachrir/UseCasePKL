@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/userType")
@@ -21,10 +22,10 @@ public class UserTypeController {
         return ResponseEntity.created(new URI("/userType/create")).build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserTypeDTO> findUserType(@PathVariable("id") Long userTypeId){
-        UserTypeDTO dto = userTypeService.findUserType(userTypeId);
-        return ResponseEntity.ok(dto);
+    @GetMapping("/")
+    public ResponseEntity<List<UserTypeDTO>> getAllUserType(@PathVariable(value = "name", required = false) String name){
+        List<UserTypeDTO> dtos = userTypeService.findAllUserType(name);
+        return ResponseEntity.ok().body(dtos);
     }
 
 }

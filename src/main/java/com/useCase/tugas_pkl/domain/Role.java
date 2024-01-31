@@ -24,4 +24,10 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "operation_id"))
     private Set<Operation> operations;
 
+//    public void addOperation(Operation operation) {
+//        operations.add(operation);
+//        operation.getRoles().add(this);
+//    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.useCase.tugas_pkl.service.Implement;
 
+import com.useCase.tugas_pkl.domain.Institution;
 import com.useCase.tugas_pkl.domain.UserType;
+import com.useCase.tugas_pkl.dto.institution.InstitutionResponseDTO;
 import com.useCase.tugas_pkl.dto.usertype.UserTypeDTO;
 import com.useCase.tugas_pkl.exception.ResourceNotFoundException;
 import com.useCase.tugas_pkl.repository.UserTypeRepository;
@@ -9,6 +11,10 @@ import com.useCase.tugas_pkl.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserTypeServiceImpl implements UserTypeService {
@@ -26,15 +32,16 @@ public class UserTypeServiceImpl implements UserTypeService {
     }
 
     @Override
-    public UserTypeDTO findUserType(Long userTypeId) {
-        UserType userType = userTypeRepository.findById(userTypeId)
-                .orElseThrow(()-> new ResourceNotFoundException("user Type not found"));
+    public List<UserTypeDTO> findAllUserType(String name) {
+        name = ObjectUtils.isEmpty(name)?"%":"%"+name+"%";
 
-        UserTypeDTO dto = new UserTypeDTO();
-        dto.setName(userType.getName());
-        dto.setId(userType.getId());
-        return dto;
+        List<UserType> userTypeList =  userTypeRepository.findAllByNameLike(name);
+        return userTypeList.stream().map((ut)-> {
+            UserTypeDTO dtos = new UserTypeDTO();
+            dtos.setName(ut.getName());
+            dtos.setId(ut.getId());
+            return dtos;
+        }).collect(Collectors.toList());
+
     }
-
-
 }

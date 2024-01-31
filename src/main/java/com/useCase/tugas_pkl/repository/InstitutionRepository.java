@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
-    List<Institution> findAllById(Long id);
-
+    List<Institution> findAllByNameLike(String name);
 }

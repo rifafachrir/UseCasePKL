@@ -16,6 +16,9 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operation_seq")
     private Long id;
     private String name;
+
+
     @ManyToMany(mappedBy = "operations")
     private Set<Role> roles;
+
 }

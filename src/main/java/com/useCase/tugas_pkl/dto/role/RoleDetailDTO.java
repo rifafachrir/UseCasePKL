@@ -5,11 +5,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class RoleResponDTO {
+public class RoleDetailDTO {
+
     private Long id;
     private String name;
-//
-//    private Long operationId;
-//    private String operationName;
+    private Long operationId;
+    private String operationName;
 
 }

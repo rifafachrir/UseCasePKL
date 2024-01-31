@@ -9,23 +9,30 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
-@RequestMapping("/usergroup/")
+@RequestMapping("/usergroup")
 public class UserGroupController {
     @Autowired
     UserGroupService userGroupService;
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResponseEntity<Void> createNewUserGroup(@RequestBody UserGroupResponseDTO dto) throws URISyntaxException {
         userGroupService.createUserGroup(dto);
         return ResponseEntity.created(new URI("/usergroup/create")).build();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserGroupResponseDTO> findUserGroup(@PathVariable("id") Long userGroupId){
         UserGroupResponseDTO dto = userGroupService.findUserGroupId(userGroupId);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<UserGroupResponseDTO>> getAllUserGroup(@PathVariable(value = "name", required = false) String name){
+        List<UserGroupResponseDTO> dtos = userGroupService.findAllUserGroup(name);
+        return ResponseEntity.ok().body(dtos);
     }
 
 }
