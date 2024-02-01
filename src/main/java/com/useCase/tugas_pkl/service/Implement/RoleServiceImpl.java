@@ -74,22 +74,4 @@ public class RoleServiceImpl implements RoleService {
         return roleDetailDTOList;
     }
 
-//    @Override
-//    public RoleDetailDTO findRoleDetail(Long roleId) {
-//        Role role = roleRepository.findById(roleId)
-//                .orElseThrow(()->new ResourceNotFoundException("ROLE ID NOT FOUND"));
-//
-//        RoleDetailDTO dto = new RoleDetailDTO();
-//        dto.setId(role.getId());
-//        dto.setName(role.getName());
-//        role.getOperations().stream().map((o)->{
-//            dto.setOperationId(o.getId());
-//            dto.setOperationName(o.getName());
-//
-//            return dto;
-//        }).collect(Collectors.toList());
-//
-//
-//        return dto;
-//    }
 }

@@ -16,12 +16,6 @@ public class UserTypeController {
     @Autowired
     UserTypeService userTypeService;
 
-    @PostMapping("/create")
-    public ResponseEntity<Void> createNewUserType(@RequestBody UserTypeDTO dto) throws URISyntaxException{
-        userTypeService.createUserType(dto);
-        return ResponseEntity.created(new URI("/userType/create")).build();
-    }
-
     @GetMapping("/")
     public ResponseEntity<List<UserTypeDTO>> getAllUserType(@PathVariable(value = "name", required = false) String name){
         List<UserTypeDTO> dtos = userTypeService.findAllUserType(name);
