@@ -23,13 +23,13 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     public void createNewOperation(OperationCreateRequestDTO dto) {
-        Role role = roleRepository.findById(dto.getRoleId())
-                .orElseThrow(()-> new ResourceNotFoundException("ROLE ID NOT FOUND"));
+//        Role role = roleRepository.findById(dto.getRoleId())
+//                .orElseThrow(()-> new ResourceNotFoundException("ROLE ID NOT FOUND"));
         Operation operation = new Operation();
-        role.getOperations().add(operation);
-        Set<Role> roles = Set.of(role);
+//        role.getOperations().add(operation);
+//        Set<Role> roles = Set.of(role);
         operation.setName(dto.getName());
-        operation.setRoles(roles);
+//        operation.setRoles(roles);
 
         operationRepository.save(operation);
     }

@@ -8,6 +8,6 @@ import lombok.Setter;
 public class OperationCreateRequestDTO {
     private Long id;
     private String name;
-    private Long roleId;
-    private String roleName;
+//    private Long roleId;
+//    private String roleName;
 }

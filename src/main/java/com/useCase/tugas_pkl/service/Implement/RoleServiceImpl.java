@@ -6,6 +6,7 @@ import com.useCase.tugas_pkl.dto.role.RoleCreateDTO;
 import com.useCase.tugas_pkl.dto.role.RoleDetailDTO;
 import com.useCase.tugas_pkl.dto.role.RoleResponDTO;
 import com.useCase.tugas_pkl.exception.ResourceNotFoundException;
+import com.useCase.tugas_pkl.repository.OperationRepository;
 import com.useCase.tugas_pkl.repository.RoleRepository;
 import com.useCase.tugas_pkl.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,19 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    OperationRepository operationRepository;
 
 
     @Override
     public void createNewRole(RoleCreateDTO dto) {
+        Operation operation = operationRepository.findById(dto.getOpId())
+                .orElseThrow(()-> new ResourceNotFoundException("OPERATOR ID NOT FOUND"));
         Role role = new Role();
         role.setName(dto.getName());
+        operation.getRoles().add(role);
+        Set<Operation> operations = Set.of(operation);
+        role.setOperations(operations);
 
         roleRepository.save(role);
     }
